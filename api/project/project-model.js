@@ -2,13 +2,13 @@ const db = require("../../data/dbConfig");
 
 module.exports = {
   getAll() {
-    return db("Projects as p").select("p.Name", "p.Description", "p.Completed");
+    return db("projects as p").select("p.name", "p.description", "p.completed");
   },
   findById(id) {
-    return db("Projects").where({ id }).first();
+    return db("projects").where({ id }).first();
   },
   addProject(project) {
-    return db("Projects").insert(project);
+    return db("projects").insert(project);
   },
 };
 

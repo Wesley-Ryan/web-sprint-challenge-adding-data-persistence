@@ -4,15 +4,15 @@ const db = require("../../data/dbConfig");
 
 module.exports = {
   getAll() {
-    return db("Task as t")
-      .leftJoin("Projects as p", "p.Project_ID", "t.Project_ID")
+    return db("tasks as t")
+      .leftJoin("projects as p", "p.project_id", "t.project_id")
       .select(
-        "t.Task_ID",
-        "t.Description",
-        "t.Notes",
-        "t.Completed",
-        "p.Project_ID",
-        "p.Name"
+        "t.task_id",
+        "t.description",
+        "t.notes",
+        "t.completed",
+        "p.project_id",
+        "p.name"
       );
   },
   findById(id) {
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   async addTask(task) {
-    const [id] = await db("Task").insert(task);
+    const [id] = await db("tasks").insert(task);
     return this.findById(id);
   },
 };

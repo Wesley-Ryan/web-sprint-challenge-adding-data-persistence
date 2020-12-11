@@ -2,14 +2,14 @@ const db = require("../../data/dbConfig");
 
 module.exports = {
   getAll() {
-    return db("Resources");
+    return db("resources");
   },
   findById(id) {
-    return db("Resources").where({ id }).first();
+    return db("resources").where({ id }).first();
   },
 
   async addResource(resource) {
-    const [id] = await db("Resources").insert(resource);
+    const [id] = await db("resources").insert(resource);
     return this.findById(id);
   },
 };

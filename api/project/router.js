@@ -17,10 +17,10 @@ router.get("/", async (req, res) => {
   try {
     let projects = await Helper.getAll();
     projects.forEach((project) => {
-      if (project.Completed === 0) {
-        project.Completed = false;
+      if (project.completed === 0) {
+        project.completed = false;
       } else {
-        project.Completed = true;
+        project.completed = true;
       }
     });
     res.status(200).json(projects);
