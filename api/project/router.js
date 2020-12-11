@@ -5,7 +5,7 @@ const router = express.Router();
 const validateProject = (req, res, next) => {
   const project = req.body;
 
-  if (!project.Name && !project.Completed) {
+  if (!project.name && !project.completed) {
     res.status(400).json({ message: "Missing required Fields." });
   } else {
     req.project = project;
