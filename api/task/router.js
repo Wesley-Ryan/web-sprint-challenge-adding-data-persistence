@@ -6,8 +6,8 @@ const router = express.Router();
 const validateTask = (req, res, next) => {
   const task = req.body;
 
-  if (!task.Description && !validateTask.Completed) {
-    res.status(500).json({ message: "Missing required Fields." });
+  if (!task.project_id) {
+    res.status(400).json({ message: "Missing project id." });
   } else {
     req.task = task;
     next();
@@ -16,8 +16,15 @@ const validateTask = (req, res, next) => {
 
 router.get("/", async (req, res) => {
   try {
-    const task = await Helper.getAll();
-    res.status(200).json(task);
+    let tasks = await Helper.getAll();
+    tasks.forEach((task) => {
+      if (task.completed === 0) {
+        task.completed = false;
+      } else {
+        task.completed = true;
+      }
+    });
+    res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({ Message: error.Message });
   }
