@@ -4,11 +4,13 @@ module.exports = {
   getAll() {
     return db("projects as p").select("p.name", "p.description", "p.completed");
   },
-  findById(id) {
-    return db("projects").where({ id }).first();
-  },
+
   addProject(project) {
-    return db("projects").insert(project);
+    return db("projects")
+      .insert(project)
+      .then(([id]) => {
+        return db("projects").where("project_id", id).first();
+      });
   },
 };
 

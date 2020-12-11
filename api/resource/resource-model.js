@@ -4,12 +4,11 @@ module.exports = {
   getAll() {
     return db("resources");
   },
-  findById(id) {
-    return db("resources").where({ id }).first();
-  },
-
-  async addResource(resource) {
-    const [id] = await db("resources").insert(resource);
-    return this.findById(id);
+  create(resource) {
+    return db("resources")
+      .insert(resource)
+      .then(([id]) => {
+        return db("resources").where("resource_id", id).first();
+      });
   },
 };

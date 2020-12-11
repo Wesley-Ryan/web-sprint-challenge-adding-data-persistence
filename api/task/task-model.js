@@ -15,12 +15,11 @@ module.exports = {
         "p.name"
       );
   },
-  findById(id) {
-    return db("Task").where({ id }).first();
-  },
-
-  async addTask(task) {
-    const [id] = await db("tasks").insert(task);
-    return this.findById(id);
+  create(task) {
+    return db("tasks")
+      .insert(task)
+      .then(([id]) => {
+        return db("tasks").where("task_id", id).first();
+      });
   },
 };

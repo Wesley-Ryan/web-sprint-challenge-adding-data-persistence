@@ -5,7 +5,7 @@ const router = express.Router();
 const validateResource = (req, res, next) => {
   const resource = req.body;
 
-  if (!resource.Name) {
+  if (!resource.name) {
     res.status(500).json({ message: "Missing required Fields." });
   } else {
     req.resource = resource;
@@ -15,15 +15,15 @@ const validateResource = (req, res, next) => {
 
 router.get("/", async (req, res) => {
   try {
-    const resource = await Helper.getAll();
-    res.status(200).json(resource);
+    const resources = await Helper.getAll();
+    res.status(200).json(resources);
   } catch (error) {
     res.status(500).json({ Message: error.Message });
   }
 });
 router.post("/", validateResource, async (req, res) => {
   try {
-    Helper.addResource(req.resource);
+    Helper.create(req.resource);
     res.status(201).json(req.resource);
   } catch (error) {
     res.status(500).json({ Message: error.Message });

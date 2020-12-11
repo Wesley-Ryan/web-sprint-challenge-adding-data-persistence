@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 });
 router.post("/", validateTask, async (req, res) => {
   try {
-    Helper.addtask(req.task);
+    Helper.create(req.task);
     res.status(201).json(req.task);
   } catch (error) {
     res.status(500).json({ Message: error.Message });
