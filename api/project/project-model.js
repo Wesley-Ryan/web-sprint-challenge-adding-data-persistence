@@ -7,9 +7,8 @@ module.exports = {
   findById(id) {
     return db("Projects").where({ id }).first();
   },
-  async addProject(project) {
-    const [id] = await db("Projects").insert(project);
-    return this.findById(id);
+  addProject(project) {
+    return db("Projects").insert(project);
   },
 };
 
